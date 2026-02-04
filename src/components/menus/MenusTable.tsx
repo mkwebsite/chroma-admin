@@ -1,9 +1,7 @@
 'use client';
 
 import React from 'react';
-import Link from 'next/link';
-import { Role } from '@/types/role';
-import { ROUTES } from '@/config/routes';
+import { Menu } from '@/types/menu';
 import {
   Table,
   TableHeader,
@@ -12,29 +10,29 @@ import {
   TableCell,
 } from '@/components/ui/table';
 
-interface RolesTableProps {
-  roles: Role[];
+interface MenusTableProps {
+  menus: Menu[];
   isLoading?: boolean;
-  onEdit?: (role: Role) => void;
-  onDelete?: (role: Role) => void;
+  onEdit?: (menu: Menu) => void;
+  onDelete?: (menu: Menu) => void;
 }
 
-export default function RolesTable({ roles, isLoading, onEdit, onDelete }: RolesTableProps) {
+export default function MenusTable({ menus, isLoading, onEdit, onDelete }: MenusTableProps) {
   if (isLoading) {
     return (
       <div className="flex items-center justify-center py-12">
         <div className="text-center">
           <div className="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900 dark:border-white"></div>
-          <p className="mt-4 text-gray-600 dark:text-gray-400">Loading roles...</p>
+          <p className="mt-4 text-gray-600 dark:text-gray-400">Loading menus...</p>
         </div>
       </div>
     );
   }
 
-  if (roles.length === 0) {
+  if (menus.length === 0) {
     return (
       <div className="flex items-center justify-center py-12">
-        <p className="text-gray-600 dark:text-gray-400">No roles found</p>
+        <p className="text-gray-600 dark:text-gray-400">No menus found</p>
       </div>
     );
   }
@@ -57,19 +55,7 @@ export default function RolesTable({ roles, isLoading, onEdit, onDelete }: Roles
                   isHeader
                   className="px-5 py-3 font-medium text-gray-500 text-start text-theme-xs dark:text-gray-400"
                 >
-                  Slug
-                </TableCell>
-                <TableCell
-                  isHeader
-                  className="px-5 py-3 font-medium text-gray-500 text-start text-theme-xs dark:text-gray-400"
-                >
-                  Description
-                </TableCell>
-                <TableCell
-                  isHeader
-                  className="px-5 py-3 font-medium text-gray-500 text-start text-theme-xs dark:text-gray-400"
-                >
-                  Permissions
+                  Status
                 </TableCell>
                 <TableCell
                   isHeader
@@ -88,44 +74,26 @@ export default function RolesTable({ roles, isLoading, onEdit, onDelete }: Roles
 
             {/* Table Body */}
             <TableBody className="divide-y divide-gray-100 dark:divide-white/[0.05]">
-              {roles.map((role) => (
-                <TableRow key={role._id}>
+              {menus.map((menu) => (
+                <TableRow key={menu._id}>
                   <TableCell className="px-5 py-4 sm:px-6 text-start">
                     <span className="font-medium text-gray-800 text-theme-sm dark:text-white/90">
-                      {role.name}
+                      {menu.name}
                     </span>
                   </TableCell>
                   <TableCell className="px-4 py-3 text-gray-500 text-start text-theme-sm dark:text-gray-400">
-                    <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-200">
-                      {role.slug}
-                    </span>
-                  </TableCell>
-                  <TableCell className="px-4 py-3 text-gray-500 text-start text-theme-sm dark:text-gray-400">
-                    {role.description || '-'}
-                  </TableCell>
-                  <TableCell className="px-4 py-3 text-start text-theme-sm">
-                    <Link
-                      href={ROUTES.ROLE_PERMISSIONS(role._id)}
-                      className="inline-flex items-center gap-1 text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300 font-medium"
+                    <span
+                      className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
+                        menu.status === 'active'
+                          ? 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400'
+                          : 'bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-200'
+                      }`}
                     >
-                      <span>View Permissions</span>
-                      <svg
-                        className="w-4 h-4"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M9 5l7 7-7 7"
-                        />
-                      </svg>
-                    </Link>
+                      {menu.status}
+                    </span>
                   </TableCell>
                   <TableCell className="px-4 py-3 text-gray-500 text-start text-theme-sm dark:text-gray-400">
-                    {new Date(role.createdAt).toLocaleDateString('en-US', {
+                    {new Date(menu.createdAt).toLocaleDateString('en-US', {
                       year: 'numeric',
                       month: 'short',
                       day: 'numeric',
@@ -136,7 +104,7 @@ export default function RolesTable({ roles, isLoading, onEdit, onDelete }: Roles
                       <button
                         className="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300"
                         title="Edit"
-                        onClick={() => onEdit?.(role)}
+                        onClick={() => onEdit?.(menu)}
                       >
                         <svg
                           className="w-5 h-5"
@@ -155,7 +123,7 @@ export default function RolesTable({ roles, isLoading, onEdit, onDelete }: Roles
                       <button
                         className="text-red-600 hover:text-red-800 dark:text-red-400 dark:hover:text-red-300"
                         title="Delete"
-                        onClick={() => onDelete?.(role)}
+                        onClick={() => onDelete?.(menu)}
                       >
                         <svg
                           className="w-5 h-5"

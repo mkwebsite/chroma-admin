@@ -59,9 +59,31 @@ export const ROUTES = {
   
   // Roles
   ROLES: '/admin/roles',
+  ROLE_PERMISSIONS: (roleId: string) => `/admin/roles/${roleId}/permissions`,
   
   // Users
   USERS: '/admin/users',
+  
+  // Menus
+  MENUS: '/admin/menus',
+  
+  // Menu Routes
+  MENU_ROUTES: '/admin/menu-routes',
+  
+  // Event Types
+  EVENT_TYPES: '/admin/event-types',
+  
+  // Events
+  EVENTS: '/admin/events',
+  
+  // Property Types
+  PROPERTY_TYPES: '/admin/property-types',
+  
+  // Facilities
+  FACILITIES: '/admin/facilities',
+  
+  // Room Types
+  ROOM_TYPES: '/admin/room-types',
 } as const;
 
 /**

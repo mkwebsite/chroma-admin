@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 import { useSidebar } from "../context/SidebarContext";
 import { ROUTES } from "@/config/routes";
 import {
+  ArrowRightIcon,
   BoxCubeIcon,
   CalenderIcon,
   ChevronDownIcon,
@@ -64,6 +65,41 @@ const navItems: NavItem[] = [
     icon: <UserCircleIcon />,
     name: "Users",
     path: ROUTES.USERS,
+  },
+  {
+    icon: <ListIcon />,
+    name: "Menus",
+    path: ROUTES.MENUS,
+  },
+  {
+    icon: <ArrowRightIcon />,
+    name: "Menu Routes",
+    path: ROUTES.MENU_ROUTES,
+  },
+  {
+    icon: <ListIcon />,
+    name: "Event Types",
+    path: ROUTES.EVENT_TYPES,
+  },
+  {
+    icon: <CalenderIcon />,
+    name: "Events",
+    path: ROUTES.EVENTS,
+  },
+  {
+    icon: <BoxCubeIcon />,
+    name: "Property Types",
+    path: ROUTES.PROPERTY_TYPES,
+  },
+  {
+    icon: <ListIcon />,
+    name: "Facilities",
+    path: ROUTES.FACILITIES,
+  },
+  {
+    icon: <BoxCubeIcon />,
+    name: "Room Types",
+    path: ROUTES.ROOM_TYPES,
   },
   {
     name: "Pages",
